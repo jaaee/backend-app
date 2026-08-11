@@ -1,15 +1,16 @@
 package com.MCXP.app.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
 @Table(name="users")
 public class User extends BaseEntity {
@@ -30,6 +31,7 @@ public class User extends BaseEntity {
 
     @Column(name="email",nullable = false, unique = true)
     @NotBlank
+    @Email
     private String email;
 
     @Column(name="user_name",nullable = false, unique = true)
@@ -44,7 +46,7 @@ public class User extends BaseEntity {
     private String phoneNumber;
 
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="role_id",nullable = false)
     private Role role;
 
